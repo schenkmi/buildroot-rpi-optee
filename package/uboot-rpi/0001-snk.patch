@@ -1,0 +1,80 @@
+diff --git a/board/raspberrypi/rpi/rpi.c b/board/raspberrypi/rpi/rpi.c
+index e367ba3..440e865 100644
+--- a/board/raspberrypi/rpi/rpi.c
++++ b/board/raspberrypi/rpi/rpi.c
+@@ -315,6 +315,8 @@ static void set_fdt_addr(void)
+  */
+ unsigned long board_get_usable_ram_top(unsigned long total_size)
+ {
++	//return 0x3F000000;
++
+ 	if ((gd->ram_top - fw_dtb_pointer) > SZ_64M)
+ 		return gd->ram_top;
+ 	return fw_dtb_pointer & ~0xffff;
+diff --git a/common/bootm.c b/common/bootm.c
+index 902c138..fa1ce30 100644
+--- a/common/bootm.c
++++ b/common/bootm.c
+@@ -28,8 +28,8 @@
+ #include <image.h>
+ 
+ #ifndef CONFIG_SYS_BOOTM_LEN
+-/* use 8MByte as default max gunzip size */
+-#define CONFIG_SYS_BOOTM_LEN	0x800000
++/* use 32MByte as default max gunzip size */
++#define CONFIG_SYS_BOOTM_LEN (32 << 20)
+ #endif
+ 
+ #define IH_INITRD_ARCH IH_ARCH_DEFAULT
+diff --git a/configs/rpi_3_defconfig b/configs/rpi_3_defconfig
+index c0c0955..7b51f0f 100644
+--- a/configs/rpi_3_defconfig
++++ b/configs/rpi_3_defconfig
+@@ -1,7 +1,7 @@
+ CONFIG_ARM=y
+ CONFIG_ARCH_CPU_INIT=y
+ CONFIG_ARCH_BCM283X=y
+-CONFIG_SYS_TEXT_BASE=0x00080000
++CONFIG_SYS_TEXT_BASE=0x11000000
+ CONFIG_TARGET_RPI_3=y
+ CONFIG_SYS_MALLOC_F_LEN=0x2000
+ CONFIG_ENV_SIZE=0x4000
+@@ -22,6 +22,7 @@ CONFIG_OF_EMBED=y
+ CONFIG_DEFAULT_DEVICE_TREE="bcm2837-rpi-3-b"
+ CONFIG_ENV_FAT_INTERFACE="mmc"
+ CONFIG_ENV_FAT_DEVICE_AND_PART="0:1"
++CONFIG_ENV_FAT_FILE="uboot-env.bin"
+ CONFIG_SYS_RELOC_GD_ENV_ADDR=y
+ CONFIG_ENV_VARS_UBOOT_RUNTIME_CONFIG=y
+ CONFIG_DM_KEYBOARD=y
+@@ -46,3 +47,9 @@ CONFIG_SYS_WHITE_ON_BLACK=y
+ CONFIG_CONSOLE_SCROLL_LINES=10
+ CONFIG_PHYS_TO_BUS=y
+ CONFIG_OF_LIBFDT_OVERLAY=y
++CONFIG_FIT=y
++CONFIG_OF_CONTROL=y
++CONFIG_FIT_SIGNATURE=y
++CONFIG_FIT_RSA=y
++CONFIG_FIT_VERBOSE=y
++
+diff --git a/configs/rpi_4_defconfig b/configs/rpi_4_defconfig
+index 8cf1bb8..98313ac 100644
+--- a/configs/rpi_4_defconfig
++++ b/configs/rpi_4_defconfig
+@@ -18,6 +18,7 @@ CONFIG_CMD_FS_UUID=y
+ CONFIG_OF_BOARD=y
+ CONFIG_ENV_FAT_INTERFACE="mmc"
+ CONFIG_ENV_FAT_DEVICE_AND_PART="0:1"
++CONFIG_ENV_FAT_FILE="uboot-env.bin"
+ CONFIG_SYS_RELOC_GD_ENV_ADDR=y
+ CONFIG_ENV_VARS_UBOOT_RUNTIME_CONFIG=y
+ CONFIG_DM_KEYBOARD=y
+@@ -33,3 +34,8 @@ CONFIG_SYS_WHITE_ON_BLACK=y
+ CONFIG_CONSOLE_SCROLL_LINES=10
+ CONFIG_PHYS_TO_BUS=y
+ CONFIG_OF_LIBFDT_OVERLAY=y
++CONFIG_FIT=y
++CONFIG_OF_CONTROL=y
++CONFIG_FIT_SIGNATURE=y
++CONFIG_FIT_RSA=y
++CONFIG_FIT_VERBOSE=y

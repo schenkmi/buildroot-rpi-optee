@@ -1,0 +1,2 @@
+source "$BR2_EXTERNAL_RPI_OPTEE_PATH/package/uboot-rpi/Config.in"
+
