@@ -18,21 +18,9 @@
 				algo = "sha1";
 			};
 		};
-		tee-1 {
-			description = "atf";
-			data = /incbin/("optee.bin");
-			type = "standalone";
-			arch = "arm64";
-			compression = "none";
-			load =  <0x08400000>;
-			entry = <0x08400000>;
-			hash@1 {
-				algo = "sha1";
-			};
-		};
 		fdt-1 {
 			description = "device tree";
-			data = /incbin/("bcm2710-rpi-3-b.dtb");
+			data = /incbin/("bcm2837-rpi-3-b.dtb");
 			type = "flat_dt";
 			arch = "arm64";
 			compression = "none";
@@ -47,12 +35,11 @@
 		config-1 {
 			description = "default configuration";
 			kernel = "kernel-1";
-			loadables = "tee-1";
 			fdt = "fdt-1";
 			signature-1 {
 				algo = "sha1,rsa2048";
 				key-name-hint = "dev";
-				sign-images = "fdt", "kernel", "loadables";
+				sign-images = "fdt", "kernel";
 			};
 		};
 	};

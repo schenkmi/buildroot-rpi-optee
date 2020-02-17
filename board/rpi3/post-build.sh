@@ -1,6 +1,6 @@
 #!/bin/sh
 
-KEY_PATH="${BR2_EXTERNAL_RPI3_OPTEE_PATH}/board/rpi3/rootfs-overlay/etc/ssh"
+KEY_PATH="${BR2_EXTERNAL_RPI_OPTEE_PATH}/board/rpi3/rootfs-overlay/etc/ssh"
 TARGET_KEY_PATH="${TARGET_DIR}/etc/ssh/"
 
 if [ ! -f "${KEY_PATH}/ssh_host_rsa_key" ]; then
