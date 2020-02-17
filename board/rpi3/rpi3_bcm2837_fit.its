@@ -14,7 +14,7 @@
 			compression = "none";
 			load =  <0x00080000>;
 			entry = <0x00080000>;
-			hash@1 {
+			hash-1 {
 				algo = "sha1";
 			};
 		};
@@ -24,7 +24,7 @@
 			type = "flat_dt";
 			arch = "arm64";
 			compression = "none";
-			hash@1 {
+			hash-1 {
 				algo = "sha1";
 			};
 		};

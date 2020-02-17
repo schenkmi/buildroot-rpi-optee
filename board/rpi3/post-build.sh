@@ -29,3 +29,15 @@ INITTAB_PATH="${TARGET_DIR}/etc/inittab"
 if ! grep -q ${GETTY_LINE} ${INITTAB_PATH}; then
 	echo ${GETTY_LINE} >> ${INITTAB_PATH}
 fi
+
+
+ITS_PATH="${BR2_EXTERNAL_RPI_OPTEE_PATH}/board/rpi3"
+ITS_FILE="rpi3_bcm2837_fit.its"
+
+cp ${ITS_PATH}/${ITS_FILE} ${BINARIES_DIR}
+
+pushd `pwd` >/dev/null 2>&1
+cd 	${BINARIES_DIR}
+mkimage -f ${ITS_FILE} image.fit
+popd >/dev/null 2>&1
+exit 0
