@@ -1,6 +1,11 @@
 # buildroot-rpi-optee
 Buildroot based Raspberry Pi 3 / RPI3 example for OP-TEE
 
+## Version
+Based on buildroot 2020.05, last updated 2020.07.17
+
+TF: v2.3, OP-TEE: 3.7.0
+
 ## Clone repository with submodules
 You must clone this project with
 ```
