@@ -1,5 +1,8 @@
 #!/bin/sh
 
+MKIMAGE=$HOST_DIR/bin/mkimage
+BOARD_DIR="$(dirname $0)"
+
 KEY_PATH="${BR2_EXTERNAL_RPI_OPTEE_PATH}/board/rpi3/rootfs-overlay/etc/ssh"
 TARGET_KEY_PATH="${TARGET_DIR}/etc/ssh/"
 
@@ -30,14 +33,16 @@ if ! grep -q ${GETTY_LINE} ${INITTAB_PATH}; then
 	echo ${GETTY_LINE} >> ${INITTAB_PATH}
 fi
 
-
-ITS_PATH="${BR2_EXTERNAL_RPI_OPTEE_PATH}/board/rpi3"
+BOARD_PATH="${BR2_EXTERNAL_RPI_OPTEE_PATH}/board/rpi3"
 ITS_FILE="rpi3_bcm2837_fit.its"
+ITS_KEYS="keys"
+FIT_FILE="image.fit"
 
-cp ${ITS_PATH}/${ITS_FILE} ${BINARIES_DIR}
+cp ${BOARD_PATH}/${ITS_FILE} ${BINARIES_DIR}
+cp -R ${BOARD_PATH}/${ITS_KEYS} ${BINARIES_DIR}
 
 pushd `pwd` >/dev/null 2>&1
 cd 	${BINARIES_DIR}
-mkimage -f ${ITS_FILE} image.fit
+$MKIMAGE -f ${ITS_FILE} -k ${ITS_KEYS} -r ${FIT_FILE}
 popd >/dev/null 2>&1
 exit 0

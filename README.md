@@ -1,6 +1,11 @@
 # buildroot-rpi-optee
 Buildroot based Raspberry Pi 3 / RPI3 example for OP-TEE
 
+## Version
+Based on buildroot 2020.05, last updated 2020.07.17
+
+TF: v2.3, OP-TEE: 3.7.0
+
 ## Clone repository with submodules
 You must clone this project with
 ```
@@ -51,4 +56,36 @@ sudo dd if=images/sdcard.img of=/dev/sdX bs=1M conv=fdatasync status=progress
 ## Console log
 ```
 sudo picocom -b 115200 /dev/ttyUSB1
+```
+## Signed FIT images
+
+### Create RSA 4096 key set
+```
+cd board/rpi3
+mkdir keys
+openssl genrsa -F4 -out "keys/dev.key" 4096
+openssl req -batch -new -x509 -key "keys/dev.key" -out "keys/dev.crt"
+```
+### Copy U-BOOT DTB for target platform
+This step needs to be done for every updated U-BOOT to have the DTB in sync with U-BOOT.
+```
+cd out/images
+cp /work/buildroot-rpi-optee/out/build/uboot-2020.01/arch/arm/dts/bcm2837-rpi-3-b.dtb u-boot-bcm2837-rpi-3-b.dtb
+```
+### Create a signed FIT
+The mkimage will place the public key into the DTB. This DTB will be used to build the U-BOOT.
+```
+cd out/images
+cp -R ../../board/rpi3/keys .
+cp ../../board/rpi3/rpi3_bcm2837_fit.its .
+cp /work/buildroot-rpi-optee/out/build/uboot-2020.01/arch/arm/dts/bcm2837-rpi-3-b.dtb u-boot-bcm2837-rpi-3-b.dtb
+../host/bin/mkimage -f rpi3_bcm2837_fit.its -K u-boot-bcm2837-rpi-3-b.dtb -k ./keys -r image.fit
+cp u-boot-bcm2837-rpi-3-b.dtb ../../board/rpi3/
+```
+### Configure to use external DTB for U-BOOT (EXT_DTB=)
+```
+cd out
+make menuconfig
+U-BOOT Options
+(EXT_DTB=${BR2_EXTERNAL_RPI_OPTEE_PATH}/board/rpi3/u-boot-bcm2837-rpi-3-b.dtb) Custom make options
 ```

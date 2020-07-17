@@ -14,8 +14,9 @@
 			compression = "none";
 			load =  <0x00080000>;
 			entry = <0x00080000>;
-			hash-1 {
-				algo = "sha1";
+			signature {
+				algo = "sha256,rsa4096";
+				key-name-hint = "dev";
 			};
 		};
 		fdt-1 {
@@ -24,23 +25,18 @@
 			type = "flat_dt";
 			arch = "arm64";
 			compression = "none";
-			hash-1 {
-				algo = "sha1";
+			signature {
+				algo = "sha256,rsa4096";
+				key-name-hint = "dev";
 			};
 		};
 	};
 	configurations {
 		default = "config-1";
-
 		config-1 {
-			description = "default configuration";
+			description = "default config";
 			kernel = "kernel-1";
 			fdt = "fdt-1";
-			signature-1 {
-				algo = "sha1,rsa2048";
-				key-name-hint = "dev";
-				sign-images = "fdt", "kernel";
-			};
 		};
 	};
 };
