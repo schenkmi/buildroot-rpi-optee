@@ -15,9 +15,20 @@ git pull --recurse-submodules
 git submodule update --recursive --remote
 cd buildroot
 git tag --list | grep 2020
-git checkout 2020.05
+git checkout 2020.08
 cd ..
-git  commit -m "update to 2020.05" buildroot
+git  commit -m "update to 2020.08" buildroot
 
+gitk compare tags
+-----------------
+gitk tags/2020.05..tags/2020.08
+
+update buildroot def config
+---------------------------
+make update-defconfig
+
+rebuild u-boot (dtb change)
+---------------------------
+make uboot-dirclean && make uboot
 
 

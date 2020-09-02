@@ -78,7 +78,7 @@ The mkimage will place the public key into the DTB. This DTB will be used to bui
 cd out/images
 cp -R ../../board/rpi3/keys .
 cp ../../board/rpi3/rpi3_bcm2837_fit.its .
-cp /work/buildroot-rpi-optee/out/build/uboot-2020.01/arch/arm/dts/bcm2837-rpi-3-b.dtb u-boot-bcm2837-rpi-3-b.dtb
+cp /work/buildroot-rpi-optee/out/build/uboot-2020.07/arch/arm/dts/bcm2837-rpi-3-b.dtb u-boot-bcm2837-rpi-3-b.dtb
 ../host/bin/mkimage -f rpi3_bcm2837_fit.its -K u-boot-bcm2837-rpi-3-b.dtb -k ./keys -r image.fit
 cp u-boot-bcm2837-rpi-3-b.dtb ../../board/rpi3/
 ```
