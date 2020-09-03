@@ -1,3 +1,10 @@
+2020.09.03
+----------
+Update to buildroot 2020.08
+TF-A: v2.3
+OP-TEE: 3.9.0
+Remark: need to add core_freq=250 in config.txt for stable serial console
+
 2020.07.17
 ----------
 Update to buildroot 2020.05
@@ -31,4 +38,7 @@ rebuild u-boot (dtb change)
 ---------------------------
 make uboot-dirclean && make uboot
 
-
+rebuild uboot-env
+-----------------
+cd out/images
+../host/bin/mkenvimage -s 0x4000 -o uboot-env.bin ../../board/rpi3/uboot.env.txt
