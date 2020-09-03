@@ -36,7 +36,7 @@ You can start the container if it was created successfully. This command gives y
 docker start -ia br-optee-rpi
 ```
 
-The next step is to create a build directory called `out` which will contain the downloaded package source files and the output images. We will use this directory for an out-of-tree Buildroot build, by adding the `O=` parameter to the make command. We have to specify the directories where the external trees are stored, which can be done by adding the `BR2_EXTERNAL=` parameter to make (We can specify multiple directories by using `:` as a separator). The default config file is called `stm32mp1_defconfig` which is inside the `br-external/configs` directory.
+The next step is to create a build directory called `out` which will contain the downloaded package source files and the output images. We will use this directory for an out-of-tree Buildroot build, by adding the `O=` parameter to the make command. We have to specify the directories where the external trees are stored, which can be done by adding the `BR2_EXTERNAL=` parameter to make (We can specify multiple directories by using `:` as a separator). The default config file is called `rpi3_defconfig` which is inside the `configs` directory.
 ```
 mkdir -p out && cd out
 make -C ../buildroot O="$(pwd)" BR2_EXTERNAL=".." rpi3_defconfig
