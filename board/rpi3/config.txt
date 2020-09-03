@@ -1,5 +1,7 @@
 enable_uart=1
 arm_control=0x200
+# 2020.09.03 Buildroot 2020.08 to prevent garbage on serial console core_freq=250 is needed
+core_freq=250
 #kernel=Image
 #dtparam=i2c_arm=on
 #dtparam=spi=on
