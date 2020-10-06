@@ -1,3 +1,7 @@
+2020.10.06
+----------
+Move buildroot external stuff into dedicate folder buildroot-external
+
 2020.09.03
 ----------
 Update to buildroot 2020.08

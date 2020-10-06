@@ -58,6 +58,11 @@ make -C ../buildroot O="$(pwd)" BR2_EXTERNAL="../buildroot-external" menuconfig
 make -C ../buildroot O="$(pwd)" BR2_EXTERNAL="../buildroot-external" update-defconfig
 ```
 
+## Build an SDK
+```
+make -C ../buildroot O="$(pwd)" BR2_EXTERNAL="../buildroot-external" sdk
+```
+
 ## Flashing
 Please change /dev/sdX with the correct mounting point of your sd card.
 ```
