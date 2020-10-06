@@ -18,7 +18,7 @@ You can build the image with
 ```
 cd buildroot-rpi-optee
 mkdir -p out && cd out
-make -C ../buildroot O="$(pwd)" BR2_EXTERNAL=".." rpi3_defconfig
+make -C ../buildroot O="$(pwd)" BR2_EXTERNAL="../buildroot-external" rpi3_defconfig
 make
 ```
 
@@ -39,12 +39,28 @@ docker start -ia br-optee-rpi
 The next step is to create a build directory called `out` which will contain the downloaded package source files and the output images. We will use this directory for an out-of-tree Buildroot build, by adding the `O=` parameter to the make command. We have to specify the directories where the external trees are stored, which can be done by adding the `BR2_EXTERNAL=` parameter to make (We can specify multiple directories by using `:` as a separator). The default config file is called `rpi3_defconfig` which is inside the `configs` directory.
 ```
 mkdir -p out && cd out
-make -C ../buildroot O="$(pwd)" BR2_EXTERNAL=".." rpi3_defconfig
+make -C ../buildroot O="$(pwd)" BR2_EXTERNAL="../buildroot-external" rpi3_defconfig
 ```
 
 After the configuration has been finalized you can issue the make command to start building the sources. This can take a long time, so be patient.
 ```
 make
+```
+
+## Menuconfig
+Precondition: you are inside out/ folder
+```
+make -C ../buildroot O="$(pwd)" BR2_EXTERNAL="../buildroot-external" menuconfig
+```
+
+## Update default configuration
+```
+make -C ../buildroot O="$(pwd)" BR2_EXTERNAL="../buildroot-external" update-defconfig
+```
+
+## Build an SDK
+```
+make -C ../buildroot O="$(pwd)" BR2_EXTERNAL="../buildroot-external" sdk
 ```
 
 ## Flashing
@@ -61,7 +77,7 @@ sudo picocom -b 115200 /dev/ttyUSB0
 
 ### Create RSA 4096 key set
 ```
-cd board/rpi3
+cd buildroot-external/board/rpi3
 mkdir keys
 openssl genrsa -F4 -out "keys/dev.key" 4096
 openssl req -batch -new -x509 -key "keys/dev.key" -out "keys/dev.crt"
@@ -76,8 +92,8 @@ cp /work/buildroot-rpi-optee/out/build/uboot-2020.01/arch/arm/dts/bcm2837-rpi-3-
 The mkimage will place the public key into the DTB. This DTB will be used to build the U-BOOT.
 ```
 cd out/images
-cp -R ../../board/rpi3/keys .
-cp ../../board/rpi3/rpi3_bcm2837_fit.its .
+cp -R ../../buildroot-external/board/rpi3/keys .
+cp ../../buildroot-external/board/rpi3/rpi3_bcm2837_fit.its .
 cp ../build/uboot-2020.07/arch/arm/dts/bcm2837-rpi-3-b.dtb u-boot-bcm2837-rpi-3-b.dtb
 PATH=../host/bin:$PATH mkimage -f rpi3_bcm2837_fit.its -K u-boot-bcm2837-rpi-3-b.dtb -k ./keys -r image.fit
 cp u-boot-bcm2837-rpi-3-b.dtb ../../board/rpi3/
