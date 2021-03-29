@@ -106,3 +106,10 @@ make menuconfig
 U-BOOT Options
 (EXT_DTB=${BR2_EXTERNAL_RPI_OPTEE_PATH}/board/rpi3/u-boot-bcm2837-rpi-3-b.dtb) Custom make options
 ```
+
+## Testing
+
+OP-TEE can be tested with the xtest application
+```
+xtest
+```
