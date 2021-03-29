@@ -84,9 +84,10 @@ openssl req -batch -new -x509 -key "keys/dev.key" -out "keys/dev.crt"
 ```
 ### Copy U-BOOT DTB for target platform
 This step needs to be done for every updated U-BOOT to have the DTB in sync with U-BOOT.
+
 ```
 cd out/images
-cp /work/buildroot-rpi-optee/out/build/uboot-2020.01/arch/arm/dts/bcm2837-rpi-3-b.dtb u-boot-bcm2837-rpi-3-b.dtb
+cp ../build/uboot-2021.01/arch/arm/dts/bcm2837-rpi-3-b.dtb u-boot-bcm2837-rpi-3-b.dtb
 ```
 ### Create a signed FIT
 The mkimage will place the public key into the DTB. This DTB will be used to build the U-BOOT.
@@ -94,9 +95,9 @@ The mkimage will place the public key into the DTB. This DTB will be used to bui
 cd out/images
 cp -R ../../buildroot-external/board/rpi3/keys .
 cp ../../buildroot-external/board/rpi3/rpi3_bcm2837_fit.its .
-cp ../build/uboot-2020.07/arch/arm/dts/bcm2837-rpi-3-b.dtb u-boot-bcm2837-rpi-3-b.dtb
+cp ../build/uboot-2021.01/arch/arm/dts/bcm2837-rpi-3-b.dtb u-boot-bcm2837-rpi-3-b.dtb
 PATH=../host/bin:$PATH mkimage -f rpi3_bcm2837_fit.its -K u-boot-bcm2837-rpi-3-b.dtb -k ./keys -r image.fit
-cp u-boot-bcm2837-rpi-3-b.dtb ../../board/rpi3/
+cp u-boot-bcm2837-rpi-3-b.dtb ../../buildroot-external/board/rpi3/
 ```
 ### Configure to use external DTB for U-BOOT (EXT_DTB=)
 ```
