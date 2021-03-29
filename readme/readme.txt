@@ -30,6 +30,11 @@ Update to buildroot 2020.05
 TF-A: v2.3
 OP-TEE: 3.7.0
 
+GIT submodule and branch
+------------------------
+If working with a branch we may update the submodule like this
+git submodule update --init
+
 GIT tag
 -------
 git tag -m "update to buildroot 2020.05, using FIT Image" V1.1.0
