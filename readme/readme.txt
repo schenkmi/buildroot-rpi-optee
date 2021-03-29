@@ -1,3 +1,18 @@
+2021.03.29
+----------
+Update to buildroot 2021.02
+TF-A: v2.4
+OP-TEE: 3.12.0
+
+Updated to OP-TEE OS 3.12.0 as older versions have a issue which gcc-10.x
+
+/work/buildroot-rpi-optee/out/host/bin/aarch64-none-linux-gnu-ld.bfd: /work/buildroot-rpi-optee/out/host/opt/ext-toolchain/bin/../lib/gcc/aarch64-none-linux-gnu/10.2.1/libgcc.a(lse-init.o): in function `init_have_lse_atomics':
+/tmp/dgboter/bbs/build04--cen7x86_64/buildbot/cen7x86_64--aarch64-none-linux-gnu/build/src/gcc/libgcc/config/aarch64/lse-init.c:44: undefined reference to `__getauxval'
+/work/buildroot-rpi-optee/out/host/aarch64-buildroot-linux-gnu/sysroot/lib/optee/export-ta_arm64/mk/link.mk:109: recipe for target '5b9e0e40-2636-11e1-ad9e-0002a5d5c51b.elf' failed
+
+https://github.com/OP-TEE/optee_os/pull/3874
+https://github.com/OP-TEE/optee_os/pull/4154
+
 2020.10.06
 ----------
 Move buildroot external stuff into dedicate folder buildroot-external
@@ -15,6 +30,11 @@ Update to buildroot 2020.05
 TF-A: v2.3
 OP-TEE: 3.7.0
 
+GIT submodule and branch
+------------------------
+If working with a branch we may update the submodule like this
+git submodule update --init
+
 GIT tag
 -------
 git tag -m "update to buildroot 2020.05, using FIT Image" V1.1.0
@@ -25,10 +45,10 @@ GIT submodul
 git pull --recurse-submodules
 git submodule update --recursive --remote
 cd buildroot
-git tag --list | grep 2020
-git checkout 2020.08
+git tag --list | grep 2021
+git checkout 2021.02
 cd ..
-git  commit -m "update to 2020.08" buildroot
+git  commit -m "update to 2021.02" buildroot
 
 gitk compare tags
 -----------------
