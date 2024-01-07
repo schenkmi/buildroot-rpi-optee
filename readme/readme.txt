@@ -1,3 +1,21 @@
+2024.01.07
+----------
+Update to buildroot 2023.11
+TF-A: v2.7
+OP-TEE: 4.0.0
+
+Need to use u-boot 2021.07 due to FIT signature verification issues found in 2022.04
+Need to use kernel 967d45b29ca2902f031b867809d72e3b3d623e7a (5.10.1-v8, from 2021.07) due to SD-Card driver issues
+
+2024.01.07
+----------
+Update to buildroot 2023.02.8
+TF-A: v2.7
+OP-TEE: 3.19.0
+
+Need to use u-boot 2021.07 due to FIT signature verification issues found in 2022.04
+Need to use kernel 967d45b29ca2902f031b867809d72e3b3d623e7a (5.10.1-v8, from 2021.07) due to SD-Card driver issues
+
 2021.03.29
 ----------
 Update to buildroot 2021.02
@@ -45,10 +63,10 @@ GIT submodul
 git pull --recurse-submodules
 git submodule update --recursive --remote
 cd buildroot
-git tag --list | grep 2021
-git checkout 2021.02
+git tag --list | grep 2023
+git checkout 2023.11
 cd ..
-git  commit -m "update to 2021.02" buildroot
+git  commit -m "update to 2023.11" buildroot
 
 gitk compare tags
 -----------------
