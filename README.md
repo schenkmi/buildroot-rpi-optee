@@ -2,9 +2,12 @@
 Buildroot based Raspberry Pi 3 / RPI3 example for OP-TEE
 
 ## Version
-Based on buildroot 2021.02, last updated 2024.01.07
+Based on buildroot 2023.02.8, last updated 2024.01.07
 
-TF: v2.4, OP-TEE: 3.12.0
+TF: v2.7, OP-TEE: 3.19.0
+
+Need to use u-boot 2021.07 due to FIT signature verification issues found in 2022.04
+Need to use kernel 967d45b29ca2902f031b867809d72e3b3d623e7a (5.10.1-v8, from 2021.07) due to SD-Card driver issues
 
 ## Clone repository with submodules
 You must clone this project with
@@ -95,7 +98,7 @@ The mkimage will place the public key into the DTB. This DTB will be used to bui
 cd out/images
 cp -R ../../buildroot-external/board/rpi3/keys .
 cp ../../buildroot-external/board/rpi3/rpi3_bcm2837_fit.its .
-cp ../build/uboot-2021.01/arch/arm/dts/bcm2837-rpi-3-b.dtb u-boot-bcm2837-rpi-3-b.dtb
+cp ../build/uboot-2022.04/arch/arm/dts/bcm2837-rpi-3-b.dtb u-boot-bcm2837-rpi-3-b.dtb
 PATH=../host/bin:$PATH mkimage -f rpi3_bcm2837_fit.its -K u-boot-bcm2837-rpi-3-b.dtb -k ./keys -r image.fit
 cp u-boot-bcm2837-rpi-3-b.dtb ../../buildroot-external/board/rpi3/
 ```
@@ -113,3 +116,15 @@ OP-TEE can be tested with the xtest application
 ```
 xtest
 ```
+
+## Tips & Tricks
+
+### Re-build u-boot
+To re-build u-boot we need to build u-boot and arm-trusted-firmware
+```
+cd out
+rm -rf build/uboot-2021.07/
+rm -rf build/arm-trusted-firmware-v2.7/
+make
+```
+
