@@ -2,7 +2,7 @@
 Buildroot based Raspberry Pi 3 / RPI3 example for OP-TEE
 
 ## Version
-Based on buildroot 2021.02, last updated 2021.03.29
+Based on buildroot 2021.02, last updated 2024.01.07
 
 TF: v2.4, OP-TEE: 3.12.0
 
